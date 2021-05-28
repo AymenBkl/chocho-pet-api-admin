@@ -28,10 +28,13 @@ app.use(cors.corsWithOptions);
 app.use(limiter.limiter);
 app.use('/api/adminchochopet/auth', authRouter);
 app.use('/api/adminchochopet/emails', emailsRouter);
+const sendEmail = require('./Middlewares/nodemailer');
+sendEmail.createTransporter();
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  next(createError(404)); 
 });
 
 
