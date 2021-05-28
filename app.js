@@ -4,18 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var gameRouter = require('./routes/game');
-var hashRouter = require('./routes/hash');
-var historyRouter = require('./routes/history');
 var authRouter = require('./routes/auth');
-var bitcoin = require('./routes/bitcoin');
+var emailsRouter = require('./routes/emailsRoute');
 var app = express();
 
 const cors = require('./Middlewares/cors');
 const httpsRedirect = require('./Middlewares/https.redirect');
 const limiter = require('./Middlewares/ddos.limiter');
 const mongoose = require('./Middlewares/mongoose');
-const fetchDepositApi = require('./Middlewares/fetch.deposit');
 var passport = require('passport');
 
 
@@ -30,11 +26,8 @@ app.use(passport.session());
 app.use(httpsRedirect);
 app.use(cors.corsWithOptions);
 app.use(limiter.limiter);
-app.use('/game', gameRouter);
-app.use('/hash', hashRouter);
-app.use('/history', historyRouter);
-app.use('/auth', authRouter);
-app.use('/bitcoin',bitcoin);
+app.use('/api/adminchochopet/auth', authRouter);
+app.use('/api/adminchochopet/emails', emailsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
