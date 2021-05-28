@@ -3,7 +3,7 @@ const emailModel = require('../../Models/email');
 const emailResponse = require('../../EmailResponse/response.controller');
 
 module.exports.getSubs = (res) => {
-    emailModel.findAll()
+    emailModel.find()
         .then(emails => {
             console.log(emails);
             if (emails) {
