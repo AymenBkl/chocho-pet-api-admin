@@ -21,6 +21,10 @@ const contactSchema = new Schema({
     message:{
         type: String, 
         required:true,
+    },
+    replied:{
+        type:Boolean,
+        default:false
     }
 }, {
     timestamps: true

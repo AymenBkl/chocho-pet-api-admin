@@ -4,6 +4,7 @@ const emailResponse = require('../../EmailResponse/response.controller');
 
 module.exports.getSubs = (res) => {
     emailModel.find()
+    .sort({ createdAt: -1 })
         .then(emails => {
             console.log(emails);
             if (emails) {

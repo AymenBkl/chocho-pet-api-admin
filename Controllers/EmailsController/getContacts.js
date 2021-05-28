@@ -3,7 +3,8 @@ const contactModel = require('../../Models/contact');
 const emailResponse = require('../../EmailResponse/response.controller');
 
 module.exports.getContacts = (res) => {
-    contactModel.findAll()
+    contactModel.find()
+    .sort({ createdAt: -1 })
         .then(contacts => {
             console.log(contacts);
             if (contacts) {
