@@ -12,9 +12,9 @@ const productSchema = new Schema({
         index: true
     },
     title:{
-        type:Boolean,
+        type:String,
         required:true,
-        default:false
+        default:''
     },
     images:[{
         src:{

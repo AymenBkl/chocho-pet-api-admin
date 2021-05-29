@@ -2,24 +2,21 @@ const prepareRequest = require('./prepareRequest');
 
 const createProduct = require('../../Controllers/productController/createProduct').createProducts;
 
-module.exports.getProducts = () => {
-    setInterval(async () => {
-        await getProducts();
-    },5000);
-    
-}
-
-
-function getProducts() {
+module.exports.getProducts = (res) => {
     return new Promise(resolve => {
         prepareRequest.prepareRequest('GET', 'products.json?limit=250&fields=id,images,title')
             .then((result) => {
-                createProduct(result.body.products);
+                console.log(result.body)
+                createProduct(result.body.products,res);
                 resolve(result);
             })
             .catch(err => {
                 resolve(err);
             })
     })
+    
 }
+
+
+
 

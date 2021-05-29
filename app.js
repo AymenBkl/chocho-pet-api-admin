@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var authRouter = require('./routes/auth');
 var emailsRouter = require('./routes/emailsRoute');
+var productRouter = require('./routes/productRouter');
 var app = express();
 
 const cors = require('./Middlewares/cors');
@@ -28,10 +29,9 @@ app.use(cors.corsWithOptions);
 app.use(limiter.limiter);
 app.use('/api/adminchochopet/auth', authRouter);
 app.use('/api/adminchochopet/emails', emailsRouter);
+app.use('/api/adminchochopet/products', productRouter);
 const sendEmail = require('./Middlewares/nodemailer');
 sendEmail.createTransporter();
-const getProducts = require('./Functions/Shopify/products').getProducts;
-getProducts();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

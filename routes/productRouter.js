@@ -17,6 +17,7 @@ router.all('/', function(req, res, next) {
 })
 .get('/getproducts',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.getProducts)
 
+.get('/refreshProducts',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.createProduct)
 
 .put('/updateproduct',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateProduct);
 

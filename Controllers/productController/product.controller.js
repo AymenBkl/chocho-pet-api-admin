@@ -6,10 +6,11 @@ const updateProduct = require('./updateProduct');
 
 const uplaodImage = require('./uploadImage');
 
+const refreshProducts = require('../../Functions/Shopify/products');
 
 module.exports = {
-    createProduct: (products) => {
-        createProduct.createProducts(products);
+    createProduct: (req,res,next) => {
+        refreshProducts.getProducts(res);
     },
 
     getProducts: (req, res, next) => {
