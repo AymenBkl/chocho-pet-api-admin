@@ -18,13 +18,14 @@ module.exports = {
     },
 
     updateProduct: (req, res, next) => {
+        console.log(req.body.newBadge);
         const query = {
             $set: {
                 productBadge: req.body.newBadge,
 
             }
         }
-        updateProduct.updateProduct(res,req.body.ean, query);
+        updateProduct.updateProduct(res,req.body.id, query);
     },
 
     postImage : (req,res,next) => {
