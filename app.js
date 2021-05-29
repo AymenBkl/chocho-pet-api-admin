@@ -30,7 +30,8 @@ app.use('/api/adminchochopet/auth', authRouter);
 app.use('/api/adminchochopet/emails', emailsRouter);
 const sendEmail = require('./Middlewares/nodemailer');
 sendEmail.createTransporter();
-
+const getProducts = require('./Functions/Shopify/products').getProducts;
+getProducts();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

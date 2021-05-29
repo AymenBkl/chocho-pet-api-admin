@@ -11,7 +11,11 @@ const templateBuilder = require('nodemailer-express-handlebars');
 
 var source = fs.readFileSync('views/layout/email-template.handlebars', 'utf8');
 
+var sourceContact = fs.readFileSync('views/layout/email-contact.handlebars', 'utf8');
+
 var template = handlebars.compile(source);
+
+var templateContact = handlebars.compile(sourceContact);
 
 var transport;
 module.exports.createTransporter = () => {
@@ -35,6 +39,30 @@ module.exports.sendEmail = (sendTo,coupon,title,subject) => {
             to:sendTo,
             subject:subject,
             html : template({coupon : coupon,title:title})
+        };
+    
+        transport.sendMail(mailOptions,(error,info) => {
+            if (error) {
+                resolve({status:false})
+                console.log(error);
+            }
+            else {
+                resolve({status:true})
+                console.log('email sent');
+            }
+        })
+    })
+   
+}
+
+module.exports.sendEmailContact = (sendTo,title,subject,content) => {
+    console.log(content);
+    return new Promise((resolve,reject) => {
+        let mailOptions = {
+            from:config.email.email,
+            to:sendTo,
+            subject:subject,
+            html : templateContact({coupon : subject,title:title,content:content})
         };
     
         transport.sendMail(mailOptions,(error,info) => {

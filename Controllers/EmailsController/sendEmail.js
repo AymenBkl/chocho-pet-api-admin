@@ -2,51 +2,41 @@
 const sendEmailNodeMailer = require('../../Middlewares/nodemailer');
 
 const emailModel = require('../../Models/email');
-module.exports.sendEmail = async (email,title,subject) => {
-    /**return new Promise(async (resolve,reject) => {
-        notificationModel.findOne({link:link,email:email,itemId:itemId})
-        .then(async (notification) => {
-            if (notification && notification != null){
-                resolve({status:false,msg:'item exist'});
-            }
-            else {
-                sendEmail(link,price,url,itemId,email,title)
-                    .then((result) => {
-                        resolve(result);
-                    })
-                    .catch(err => {
-                        resolve({status:false,msg:'couldnt send message'})
-                    })
-            }
-        })
-        .catch(err => {
-            resolve({status:false,msg:'couldnt send message'});
-        })
-    })**/
+
+const generateCoupon = require('../../Functions/Shopify/priceRules').createDiscount;
+
+let emails = [];
+module.exports.sendEmail = async (email) => {
     return new Promise(async (resolve,reject) => {
-        resolve(sendEmail('LLLLL',email,title,subject));
+        emails = email;
+        emailsLoop();
     });
     
 }
 
-async function createNotification(link,itemId,email) {
-    return new Promise(async (resolve,reject) => {
-        notificationModel.create({link:link,itemId:itemId,email:email})
-            .then((notificationCreated) => {
-                if (notificationCreated) {
-                    resolve({status:true,msg:'message sent'});
+async function emailsLoop() {
+    while (emails.length > 0 ){
+        console.log(emails.length);
+        await generateCoupon() 
+            .then(async (couponResult) => {
+                console.log(couponResult.status == true && couponResult.body != null);
+                if (couponResult.status == true && couponResult.body != null){
+                    await sendEmail(couponResult.body.discount_code.code,emails[0],'WELCOM TO CHOCHO PET','COUPON');
+                    emails.shift();
                 }
                 else {
-                    resolve({status:false,msg:'couldnt send message'});
-
+                    emails.shift();
                 }
+            }) 
+            .catch(err => {
+                emails.shift();
             })
-            .catch((err) => {
-                console.log(err);
-                resolve({status:false,msg:'couldnt send message'});
-            })
-    })
+    }
 }
+
+
+
+
 
 async function updateEmailCouponSent(email) {
     return new Promise(async (resolve) => {
@@ -70,6 +60,7 @@ async function updateEmailCouponSent(email) {
 
 async function sendEmail(coupon,email,title,subject) {
     return new Promise((resolve,reject) => {
+        console.log('here');
         setTimeout(async () => {
             sendEmailNodeMailer.sendEmail(email,coupon,title,subject)
             .then(async (result) => {

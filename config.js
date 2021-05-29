@@ -14,6 +14,13 @@ module.exports.config = {
     email: {
       email:'chochopets@gmail.com',
       psw: 'chochopet123456789'
+    },
+    shopify: {
+      baseURL : 'https://chochopet.myshopify.com/',
+      appId:'5347943',
+      apiKey:'6507765aa84a63a00dcaeb371f5237c1',
+      apiSecret:'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',
+
     }
 } 
 
