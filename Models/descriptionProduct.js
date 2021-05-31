@@ -8,8 +8,6 @@ const descriptionSchema = new Schema({
     productId: {
         type: String,
         required: true,
-        unique: true,
-        index: true
     },
     header:{
         type:String,

@@ -35,7 +35,7 @@ module.exports = {
     },
 
     addDescription: (req,res,next) => {
-        addDescription.addDescription(req.body.description,req.body.productId,res);
+        addDescription.addDescription(req.body.description,req.body.productId,req.body.productMainId,res);
     }
 
 

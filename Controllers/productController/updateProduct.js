@@ -9,7 +9,6 @@ module.exports.updateProduct = (res,id,query) => {
             }
             else {
                 productResponse.response('error',res,'Something Went Wrong !',500,null,'UPDATE PRODUCT','SOMETHING WENT WRONG !');
-
             }
         })
         .catch(err => {

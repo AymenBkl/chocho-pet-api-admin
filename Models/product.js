@@ -26,8 +26,8 @@ const productSchema = new Schema({
         default:'none'
     },
     description:[{
-        type:mongoose.Types.ObjectId,
-        ref:"productdescription"
+        type: mongoose.Types.ObjectId,
+        ref: 'productdescription'
     }]
 }, {
     timestamps: true
