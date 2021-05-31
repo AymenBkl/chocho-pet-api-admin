@@ -24,7 +24,11 @@ const productSchema = new Schema({
     productBadge:{
         type:String,
         default:'none'
-    }
+    },
+    description:[{
+        type:mongoose.Types.ObjectId,
+        ref:"productdescription"
+    }]
 }, {
     timestamps: true
 })

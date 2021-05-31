@@ -8,6 +8,8 @@ const uplaodImage = require('./uploadImage');
 
 const refreshProducts = require('../../Functions/Shopify/products');
 
+const addDescription = require('./addDescription');
+
 module.exports = {
     createProduct: (req,res,next) => {
         refreshProducts.getProducts(res);
@@ -30,6 +32,10 @@ module.exports = {
 
     postImage : (req,res,next) => {
         uplaodImage.upload(req,res);
+    },
+
+    addDescription: (req,res,next) => {
+        addDescription.addDescription(req.body.description,req.body.productId,res);
     }
 
 
