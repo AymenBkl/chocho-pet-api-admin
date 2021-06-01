@@ -2,7 +2,7 @@ const productModel = require('../../Models/product');
 const productResponse = require('../../HandlerProducts/response.controller');
 
 module.exports.updateProduct = (res,id,query) => {
-    productModel.findOneAndUpdate({productId:id},query,{$upsert: true, $new: true})
+    productModel.findOneAndUpdate({productId:id},query,{upsert: true, new: true})
         .then((updated) => {
             if (updated) {
                 productResponse.response('success',res,'PRODUCTS UPDATED',200,updated,'UPDATE PRODUCT');

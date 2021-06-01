@@ -28,7 +28,33 @@ const productSchema = new Schema({
     description:[{
         type: mongoose.Types.ObjectId,
         ref: 'productdescription'
-    }]
+    }],
+    tableDescription:{
+        imageSizeChartUrl:{
+            type:String,
+            default:''
+        },
+        imageBuyUrl:{
+            type:String,
+            default:''
+
+        },
+        imageColorUrl:{
+            type:String,
+            default:''
+
+        },
+        mainBenifts:{
+            type:String,
+            default:''
+
+        },
+        imageMainBeniftsUrl:{
+            type:String,
+            default:''
+
+        }
+    }
 }, {
     timestamps: true
 })

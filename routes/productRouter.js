@@ -21,6 +21,8 @@ router.all('/', function(req, res, next) {
 
 .post('/adddescription',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.addDescription)
 
+.put('/updateproducttabledescription',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateTableDescription)
+
 .put('/updateproduct',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateProduct);
 
 
