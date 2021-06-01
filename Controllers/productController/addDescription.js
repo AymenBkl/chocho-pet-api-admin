@@ -9,10 +9,11 @@ module.exports.addDescription = (description,productId,productMainId,res) => {
     if (!description._id){
         description._id = mongoose.Types.ObjectId();
     }
-    productDescription.findById(description._id)
+    productDescription.findById(description._id,{_id:0})
+        .select('-_id')
         .then((descriptionFound) => {
+            delete description._id;
             if (descriptionFound){
-                console.log('true')
                 productDescription.findOneAndUpdate({},description,{new:true,upsert:true})
                     .then((descriptionCreated) => {
                         if (descriptionCreated){
