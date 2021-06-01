@@ -16,7 +16,11 @@ module.exports = {
     },
 
     getProducts: (req, res, next) => {
-        getProducts.getProduct(res);
+        getProducts.getProducts(res);
+    },
+
+    getProduct: (req, res, next) => {
+        getProducts.getProduct(res,req.params.productId);
     },
 
     updateProduct: (req, res, next) => {
