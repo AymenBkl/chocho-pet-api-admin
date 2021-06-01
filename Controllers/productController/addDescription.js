@@ -12,9 +12,11 @@ module.exports.addDescription = (description,productId,productMainId,res) => {
     productDescription.findById(description._id,{_id:0})
         .select('-_id')
         .then((descriptionFound) => {
+            let productId = description._id;
             delete description._id;
             if (descriptionFound){
-                productDescription.findOneAndUpdate({},description,{new:true,upsert:true})
+                console.log(description);
+                productDescription.findByIdAndUpdate(productId,description,{new:true,upsert:true})
                     .then((descriptionCreated) => {
                         if (descriptionCreated){
                             if (descriptionCreated){

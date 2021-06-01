@@ -43,13 +43,7 @@ module.exports = {
         Object.keys(req.body.dataToSave).map(key => {
             tableDescription['tableDescription.' +key] = req.body.dataToSave[key];
         })
-        const query = {
-            $set : {
-                tableDescription,
-            }
-            
-        }
-        console.log(tableDescription);
+        
         updateProduct.updateProduct(res,req.body.productId, tableDescription);
     }
 
