@@ -20,7 +20,7 @@ var options = {
     sslKey:key,
 };
 
-module.exports = mongoose
+/**module.exports = mongoose
   .connect(config.config.mongoDB.url,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -31,6 +31,18 @@ module.exports = mongoose
     sslKey:key,
     user:config.config.mongoDB.user,
     pass: config.config.mongoDB.pwd
+})
+  .then((db) => {
+    console.log("connected to db");
+  }) 
+  .catch((err) => {
+    console.log("ERROR : !!", err);
+  });**/
+
+  module.exports = mongoose
+  .connect(config.config.mongoDB.url,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
   .then((db) => {
     console.log("connected to db");
