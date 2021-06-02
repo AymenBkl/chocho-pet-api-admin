@@ -1,5 +1,5 @@
-const errResponse = require('./response.err.email');
-const successResponse = require('./response.success.email');
+const errResponse = require('./response.err.tools');
+const successResponse = require('./response.success.tools');
 
 module.exports.response = (type,res,msg,status,object) => {
     if (type == 'error'){
