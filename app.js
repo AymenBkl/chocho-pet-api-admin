@@ -7,6 +7,7 @@ var logger = require('morgan');
 var authRouter = require('./routes/auth');
 var emailsRouter = require('./routes/emailsRoute');
 var productRouter = require('./routes/productRouter');
+var toolsRouter = require('./routes/toolsRouter');
 var app = express();
 
 const cors = require('./Middlewares/cors');
@@ -30,6 +31,7 @@ app.use(limiter.limiter);
 app.use('/api/adminchochopet/auth', authRouter);
 app.use('/api/adminchochopet/emails', emailsRouter);
 app.use('/api/adminchochopet/products', productRouter);
+app.use('/api/adminchochopet/tools', toolsRouter);
 const sendEmail = require('./Middlewares/nodemailer');
 sendEmail.createTransporter();
 
