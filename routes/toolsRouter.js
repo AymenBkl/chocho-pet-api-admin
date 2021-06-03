@@ -18,7 +18,11 @@ router.all('/', function(req, res, next) {
 
 .get('/getbestreviews',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, toolsControler.getBestReviews)
 
-.post('/savereview',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, toolsControler.saveBestReview);
+.post('/savereview',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, toolsControler.saveBestReview)
+
+.get('/getbesttips',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, toolsControler.getBestTips)
+
+.post('/savetip',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, toolsControler.saveBestTip);
 
 
 
