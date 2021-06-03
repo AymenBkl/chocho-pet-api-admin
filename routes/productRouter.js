@@ -23,6 +23,10 @@ router.all('/', function(req, res, next) {
 
 .post('/adddescription',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.addDescription)
 
+.get('/getbadges',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.getBadges)
+
+.post('/savebadge',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.saveBadge)
+
 .put('/updateproducttabledescription',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateTableDescription)
 
 .put('/updateproduct',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateProduct);

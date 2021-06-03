@@ -10,6 +10,8 @@ const refreshProducts = require('../../Functions/Shopify/products');
 
 const addDescription = require('./addDescription');
 
+const badges = require('./badges');
+
 module.exports = {
     createProduct: (req,res,next) => {
         refreshProducts.getProducts(res);
@@ -49,6 +51,14 @@ module.exports = {
         })
         
         updateProduct.updateProduct(res,req.body.productId, tableDescription);
+    },
+
+    saveBadge: (req,res,next) => {
+        badges.saveBadge(req.body.badgeBody,res);
+    },
+
+    getBadges : (req,res,next) => {
+        badges.getBadges(res);
     }
 
 
