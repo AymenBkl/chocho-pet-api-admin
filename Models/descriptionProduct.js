@@ -33,7 +33,11 @@ const descriptionSchema = new Schema({
     status:{
         type:String,
         default:'active'
-    }
+    },
+    position : {
+        type:Number,
+        required:true,
+    },
 }, {
     timestamps: true
 })
