@@ -17,6 +17,10 @@ const badgeSchema = new Schema({
         default:''
     },
 
+    status:{
+        type:String,
+        default:'active'
+    }
 }, {
     timestamps: true
 })

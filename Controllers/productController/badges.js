@@ -1,5 +1,6 @@
 const badgeModel = require('../../Models/badge');
 
+const mongoose = require('mongoose');
 module.exports.saveBadge = (badgeBody,res) => {
     let badgeId = badgeBody._id;
     if (!badgeId || badgeId == ''){
@@ -7,18 +8,23 @@ module.exports.saveBadge = (badgeBody,res) => {
         badgeId = new mongoose.Types.ObjectId();
     }
     delete badgeBody._id;
+    delete badgeBody.createdAt;
     badgeModel.findByIdAndUpdate(badgeId,badgeBody,{new:true,upsert:true})
         .then((badgeUpdated) => {
             if (badgeUpdated) {
-                res.json({res,msg:'BADGES UPDATED SUCCESSFULY',status:200,badge:badgeUpdated,success:true});
+                res.json({msg:'BADGES UPDATED SUCCESSFULY',status:200,badge:badgeUpdated,success:true});
             }
             else {
-                res.json({res,msg:'ERROR SAVING BADGE',status:500,success:false});
+                res.json({msg:'ERROR SAVING BADGE',status:500,success:false});
             }
         })
         .catch(err => {
-            console.log(err);
-            res.json({res,msg:'ERROR SAVING BADGE',status:500,success:false});
+            if (err && err.code == 11000){
+                res.json({msg:'Name Already Exists',status:500,success:false});
+            }
+            else {
+                res.json({msg:'ERROR SAVING BADGE',status:500,success:false});
+            }
         })
 }
 
@@ -26,18 +32,19 @@ module.exports.saveBadge = (badgeBody,res) => {
 module.exports.getBadges = (res) => {
     badgeModel.find()
         .then((badges) => {
+            
             if (badges && badges.length > 0){
-                res.json({res,msg:'BADGES',status:200,badge:badges,success:true});
+                res.json({msg:'BADGES',status:200,badges:badges,success:true});
             }
             else if (badges && badges.length == 0){
-                res.json({res,msg:'You dont"t have any badges',status:404,badge:null,success:false});
+                res.json({msg:'You dont"t have any badges',status:404,badges:null,success:false});
             }
             else {
-                res.json({res,msg:'ERROR SAVING BADGE',status:500,success:false});
+                res.json({msg:'ERROR SAVING BADGE',status:500,success:false});
 
             }
         })
         .catch(err => {
-            res.json({res,msg:'ERROR SAVING BADGE',status:500,success:false});
+            res.json({msg:'ERROR SAVING BADGE',status:500,success:false});
         })
 }
