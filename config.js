@@ -3,7 +3,7 @@ module.exports.config = {
     https: 'https://192.168.1.104:3000',
     webURL: 'https://localhost:4200',  
     mongoDB: {
-            url : 'mongodb://127.0.0.1:27017/chochopet',
+            url : 'mongodb://192.168.1.104:27017/chochopet?ssl=true',
             user: 'chochopetAdmin', 
             pwd: 'U#me+ZAK2y?GQ&qr2xH-kMLkkrvgTMbJrybWybuwAj^g%mH5#88YMdcfjuq*G=mLSQsqJ_3Z=jKy-AaLLG8Njc&aV&V_vpX=QsHHJ?*JptTLVj55r&bJGbMNbyF&PJDtbHbdksD-kT3*Y7ZZ+L7RTQ-bLb!2yc&@5ve%D&@=xrGCx9X#ZaUJJUQD=TSH$sYmGkJFm9@wRs9gqAeL*_nGuJkzVAZc2B+MSDFyK9RheTTvsD&yn7fpxyTNaG?dHqTPuwns3tY+N74N_+n!@TT7m9RHqGfKVk3AHkD!z^nKpqyVb5P+EA==NdF$@NeS656^EL7ye^DZ6XmvbjZ#?zxQUg9qcfbqjjSj39zC!Rqbk%wuab*y4P2!kx8*$YRny?AM@djhExh8!R*enYsccrBCZCVy+z2TG5xN7fkFUcvf%^Vwaf_zV_2-CqM#DUshxen%J^V%WCLBL%ktVyJywkrbb%Gg-Mr#U7eqQ&B$=L&SHk#BXCvJdk7+x#fC+gJW5dtL'
     },

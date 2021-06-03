@@ -24,7 +24,11 @@ const bestTipsSchema = new Schema({
     status : {
         type:String,
         required:true,
-        default:''
+        default:'active'
+    },
+    position : {
+        type:Number,
+        required:true,
     },
 }, {
     timestamps: true

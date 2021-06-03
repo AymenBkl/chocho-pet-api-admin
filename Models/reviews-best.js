@@ -26,6 +26,10 @@ const bestReviewsSchema = new Schema({
         required:true,
         default:''
     },
+    position : {
+        type:Number,
+        required:true,
+    },
 }, {
     timestamps: true
 })
