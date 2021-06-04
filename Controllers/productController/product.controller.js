@@ -26,10 +26,10 @@ module.exports = {
     },
 
     updateProduct: (req, res, next) => {
-        console.log(req.body.newBadge);
+        console.log(req.body.badgeId);
         const query = {
             $set: {
-                productBadge: req.body.newBadge,
+                productBadge: req.body.badgeId,
 
             }
         }

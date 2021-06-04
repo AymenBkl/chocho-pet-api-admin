@@ -22,8 +22,8 @@ const productSchema = new Schema({
         } 
     }],
     productBadge:{
-        type:String,
-        default:'none'
+        type:mongoose.Types.ObjectId,
+        ref:'badge',
     },
     description:[{
         type: mongoose.Types.ObjectId,
