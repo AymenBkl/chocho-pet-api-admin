@@ -62,10 +62,10 @@ async function sendEmail(coupon,email,title,subject) {
     return new Promise((resolve,reject) => {
         console.log('here');
         setTimeout(async () => {
-            sendEmailNodeMailer.sendEmail(email,coupon,title,subject)
+            sendEmailNodeMailer.sendEmail(email.email,coupon,title,subject)
             .then(async (result) => {
                 if (result && result.status) {
-                        resolve(await updateEmailCouponSent(email));
+                        resolve(await updateEmailCouponSent(email.email));
                 }
                 else {
                     resolve({status:false,msg:"message not send"});
