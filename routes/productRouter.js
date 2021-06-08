@@ -25,9 +25,13 @@ router.all('/', function(req, res, next) {
 
 .get('/getbadges',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.getBadges)
 
+.get('/getbadgesshiping',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.getBadgesShiping)
+
 .get('/producturls',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.getURLS)
 
 .post('/savebadge',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.saveBadge)
+
+.post('/savebadgeshiping',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.saveBadgeShiping)
 
 .put('/updateproducttabledescription',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, products.updateTableDescription)
 

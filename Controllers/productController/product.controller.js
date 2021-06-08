@@ -14,6 +14,8 @@ const badges = require('./badges');
 
 const getURLS = require('./getUrls').getURLs;
 
+const shipingBadges = require('./shipingBadges');
+
 module.exports = {
     createProduct: (req,res,next) => {
         refreshProducts.getProducts(res);
@@ -65,7 +67,17 @@ module.exports = {
 
     getURLS: (req,res,next) => {
         getURLS(res);
-    }
+    },
+
+    saveBadgeShiping: (req,res,next) => {
+        shipingBadges.saveBadgeShiping(req.body.badgeBody,res);
+    },
+
+    getBadgesShiping : (req,res,next) => {
+        shipingBadges.getBadgesShiping(res);
+    },
+
+
 
 
 }
