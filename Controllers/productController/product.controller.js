@@ -12,6 +12,8 @@ const addDescription = require('./addDescription');
 
 const badges = require('./badges');
 
+const getURLS = require('./getUrls').getURLs;
+
 module.exports = {
     createProduct: (req,res,next) => {
         refreshProducts.getProducts(res);
@@ -59,6 +61,10 @@ module.exports = {
 
     getBadges : (req,res,next) => {
         badges.getBadges(res);
+    },
+
+    getURLS: (req,res,next) => {
+        getURLS(res);
     }
 
 
