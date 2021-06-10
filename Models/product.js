@@ -27,7 +27,7 @@ const productSchema = new Schema({
     },
     productShipingBadge:{
         type:mongoose.Types.ObjectId,
-        ref:'shipingbadg',
+        ref:'shipingbadge',
     },
     description:[{
         type: mongoose.Types.ObjectId,
