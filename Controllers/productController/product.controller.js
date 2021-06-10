@@ -30,14 +30,22 @@ module.exports = {
     },
 
     updateProduct: (req, res, next) => {
-        console.log(req.body.badgeId);
-        const query = {
-            $set: {
-                productBadge: req.body.badgeId,
-
+        let query;
+        if (req.query && req.query.type && req.query.type == 'badge-shiping'){
+            query = {
+                $set: {
+                    productShipingBadge: req.body.badgeId,
+                }
             }
         }
-        updateProduct.updateProduct(res,req.body.id, query);
+        else {
+            query = {
+                $set: {
+                    productBadge : req.body.badgeId,
+                }
+            }
+        }
+                updateProduct.updateProduct(res,req.body.id, query);
     },
 
     postImage : (req,res,next) => {
