@@ -15,6 +15,7 @@ const httpsRedirect = require('./Middlewares/https.redirect');
 const limiter = require('./Middlewares/ddos.limiter');
 const mongoose = require('./Middlewares/mongoose');
 var passport = require('passport');
+var helmet = require('helmet');
 
 
 // view engine setup
@@ -41,6 +42,7 @@ app.use(function(req, res, next) {
 });
 
 
+app.use(helmet());
 
 // error handler
 app.use(function(err, req, res, next) {
