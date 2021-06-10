@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var errorHandler = require('strong-error-handler');
 
 var authRouter = require('./routes/auth');
 var emailsRouter = require('./routes/emailsRoute');
@@ -15,7 +16,6 @@ const httpsRedirect = require('./Middlewares/https.redirect');
 const limiter = require('./Middlewares/ddos.limiter');
 const mongoose = require('./Middlewares/mongoose');
 var passport = require('passport');
-var helmet = require('helmet');
 
 
 // view engine setup
@@ -42,7 +42,7 @@ app.use(function(req, res, next) {
 });
 
 
-app.use(helmet());
+app.use(errorHandler({log: false}));
 
 // error handler
 app.use(function(err, req, res, next) {

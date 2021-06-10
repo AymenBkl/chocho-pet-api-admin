@@ -6,6 +6,11 @@ const cors = require('../Middlewares/cors');
 const jwt = require('../Middlewares/jwt/jwt');
 
 const upload = require('../Middlewares/multer').upload;
+
+var helmet = require('helmet');
+
+router.use(helmet());
+
 router.all('/', function(req, res, next) {
     next();
 })

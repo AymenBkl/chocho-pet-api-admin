@@ -7,7 +7,9 @@ const products = require('../Controllers/productController/product.controller');
 const cors = require('../Middlewares/cors');
 
 const jwt = require('../Middlewares/jwt/jwt');
+var helmet = require('helmet');
 
+router.use(helmet());
 
 router.all('/', function(req, res, next) {
     next();
