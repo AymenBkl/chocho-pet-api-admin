@@ -30,11 +30,19 @@ module.exports = {
     },
 
     updateProduct: (req, res, next) => {
+        console.log(req.body.badgeId)
         let query;
         if (req.query && req.query.type && req.query.type == 'badge-shiping'){
             query = {
                 $set: {
                     productShipingBadge: req.body.badgeId,
+                }
+            }
+        }
+        else if (req.query && req.query.type && req.query.type == 'product-recomend'){
+            query = {
+                $set: {
+                    recomendedProduct : req.body.badgeId,
                 }
             }
         }

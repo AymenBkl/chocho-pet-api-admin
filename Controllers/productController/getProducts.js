@@ -4,7 +4,7 @@ const productResponse = require('../../HandlerProducts/response.controller');
 
 module.exports.getProducts = (res) => {
     productModel.find({})
-    .populate([{path:'description'},{path:'productBadge'},{path:'productShipingBadge'}])
+    .populate([{path:'description'},{path:'productBadge'},{path:'productShipingBadge'},{path:'recomendedProduct.product'}])
         .then(products => {
             if (products && products.length > 0){
                 productResponse.response('success',res,'PRODUCTS LOADDED',200,products,'GET PRODUCTS');

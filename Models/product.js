@@ -29,6 +29,18 @@ const productSchema = new Schema({
         type:mongoose.Types.ObjectId,
         ref:'shipingbadge',
     },
+    recomendedProduct:[
+        {
+            product:{
+                type: mongoose.Types.ObjectId,
+                ref: 'product' 
+            },
+            status:{
+                type:String,
+                default:'active'
+            }
+        }
+    ],
     description:[{
         type: mongoose.Types.ObjectId,
         ref: 'productdescription'
