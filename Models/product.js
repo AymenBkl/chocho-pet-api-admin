@@ -74,6 +74,14 @@ const productSchema = new Schema({
     status:{
         type:String,
         default:'active'
+    },
+    price:{
+        type:Number,
+        required:true
+    },
+    variant_id:{
+        type:String,
+        require:true
     }
 }, {
     timestamps: true

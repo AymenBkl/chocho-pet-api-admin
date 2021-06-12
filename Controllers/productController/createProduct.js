@@ -17,7 +17,14 @@ module.exports.createProducts = (products,res) => {
 
 
 function deleteAllProduct(products,res) {
-    
+        products.map(product => {
+            if (product.variants){
+                console.log(true,product.title,product.variants[0].price,product.variants[0].id);
+            }
+            else {
+                console.log(false)
+            }
+        })
         productModel.bulkWrite(
             products.map((product) =>
             ({
@@ -28,7 +35,9 @@ function deleteAllProduct(products,res) {
                         $set: {
                             title: product.title,
                             images: product.images,
-                            status:'active'
+                            status:'active',
+                            price:product.variants[0].price,
+                            variant_id:product.variants[0].id
                         },
                         $setOnInsert: {
                             productId: product.id,

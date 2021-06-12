@@ -4,7 +4,7 @@ const createProduct = require('../../Controllers/productController/createProduct
 
 module.exports.getProducts = (res) => {
     return new Promise(resolve => {
-        prepareRequest.prepareRequest('GET', 'products.json?limit=250&fields=id,images,title')
+        prepareRequest.prepareRequest('GET', 'products.json?limit=250&fields=id,images,title,variants')
             .then((result) => {
                 createProduct(result.body.products,res);
                 resolve(result);
