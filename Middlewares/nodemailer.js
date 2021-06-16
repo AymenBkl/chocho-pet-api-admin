@@ -20,11 +20,15 @@ var templateContact = handlebars.compile(sourceContact);
 var transport;
 module.exports.createTransporter = () => {
     transport = nodemailer.createTransport({
-        service:'gmail',
+        host:'ssl0.ovh.net',
+        port:587,
+        secure:false,
         auth:{
             user:config.email.email,
             pass:config.email.psw
-        }
+        },
+        tls:{
+       ciphers:'SSLv3'}
     });
     transport.use('compile', templateBuilder({
         viewEngine : 'express-handlebars',
