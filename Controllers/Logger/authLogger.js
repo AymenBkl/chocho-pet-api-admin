@@ -1,12 +1,12 @@
 const authLogger = require('../../Models/auth-logger');
 
 module.exports.insertAuthLogger = (object) => {
-    authLogger.create()
+    authLogger.create(object)
         .then((result) => {
-
+            console.log(result)
         })
         .catch(err => {
-
+            console.log(err);
         })
 }
 

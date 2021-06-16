@@ -1,4 +1,5 @@
 const passport = require("passport");
+
 module.exports = {
     checkJWT: (req, res, next) => {
         passport.authenticate('jwt', { session: false }, (err, hash, info) => {
@@ -23,7 +24,7 @@ function success(res, token, status, admin) {
     delete admin.salt;
     res.statusCode = status;
     res.setHeader("Content-Type", "application/json");
-    res.json({ msg: "Welcom to BITEXPLODE ", success: true, token: token, status: status, user: admin });
+    res.json({ msg: "Welcom to Chocho Pet ", success: true, token: token, status: status, user: admin });
 }
 
 function error(res, err, status, admin) {

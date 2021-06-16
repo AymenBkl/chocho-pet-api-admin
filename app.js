@@ -9,6 +9,7 @@ var authRouter = require('./routes/auth');
 var emailsRouter = require('./routes/emailsRoute');
 var productRouter = require('./routes/productRouter');
 var toolsRouter = require('./routes/toolsRouter');
+var loggerRouter = require('./routes/loggerRouter');
 var app = express();
 
 const cors = require('./Middlewares/cors');
@@ -32,6 +33,7 @@ app.use('/api/adminchochopet/auth', authRouter);
 app.use('/api/adminchochopet/emails', emailsRouter);
 app.use('/api/adminchochopet/products', productRouter);
 app.use('/api/adminchochopet/tools', toolsRouter);
+app.use('/api/adminchochopet/logger', loggerRouter);
 const sendEmail = require('./Middlewares/nodemailer');
 sendEmail.createTransporter();
 

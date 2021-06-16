@@ -10,6 +10,7 @@ const adminModel = require("../../Models/admin");
 
 const config = require("../../config").config;
 
+const logger = require('../../Controllers/Logger/logger.controller');
 
 module.exports.getToken = (admin) => {
   return JWT.sign(admin, config.token.secretKey, {
@@ -44,9 +45,11 @@ exports.verifyAdmin = (req, res, next) => {
       next();
     } else {
       res.statusCode = 403;
+      loggerController.insertLogger({level:'ERROR',type:'JWT',msg:'Not Allowed'});
       res.json({status : 403,msg : 'you are not allow to do this operation'});
     }
   } else {
+    loggerController.insertLogger({level:'ERROR',type:'JWT',msg:'Not Allowed'});
     res.statusCode = 403;
     res.json({status : 403,msg : 'login first'});
   }

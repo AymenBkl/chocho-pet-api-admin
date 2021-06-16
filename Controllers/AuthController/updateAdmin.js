@@ -2,6 +2,7 @@ const admin = require('../../Models/admin');
 
 const response = require('../../UserResponse/response.controller');
 const Redis = require('ioredis');
+const { RateLimiterRedis } = require('rate-limiter-flexible');
 
 const loggerController = require('../Logger/logger.controller');
 

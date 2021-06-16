@@ -13,7 +13,7 @@ const authLoggerSchema = new Schema({
     type:{
         type: String,
         required: true,
-        enum: ['LOGIN', 'UPDATE','CHANGE PASSWORD','REGISTER']
+        enum: ['LOGIN', 'UPDATE','CHANGE PASSWORD','REGISTER','JWT']
     },
     msg:{
         type:String,
@@ -26,4 +26,4 @@ const authLoggerSchema = new Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('authlogger', authLogger);
+module.exports = mongoose.model('authlogger', authLoggerSchema);
