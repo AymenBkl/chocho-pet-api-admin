@@ -17,7 +17,6 @@ const limiter = require('./Middlewares/ddos.limiter');
 const mongoose = require('./Middlewares/mongoose');
 var passport = require('passport');
 
-
 // view engine setup
 app.use('/api',express.static(path.join(__dirname, '/public')));
 app.use(logger('dev'));

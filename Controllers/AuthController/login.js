@@ -27,7 +27,6 @@ module.exports = {
     login: (req, res, next) => {
         rateLimiter.consume(req.connection.remoteAddress)
             .then(data => {
-                console.log(data);
                 console.log(data.remainingPoints);
                 passport.authenticate('local',{session: false}, (err, admin, info) => {
                     if (!admin) {
