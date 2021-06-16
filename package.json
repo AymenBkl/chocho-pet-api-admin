@@ -17,6 +17,7 @@
     "helmet": "^4.6.0",
     "http-errors": "~1.6.3",
     "https": "^1.0.0",
+    "ioredis": "^4.27.6",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.11",
@@ -30,6 +31,8 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
     "pug": "2.0.0-beta11",
+    "rate-limiter-flexible": "^2.2.2",
+    "redis": "^3.1.2",
     "request": "^2.88.2",
     "strong-error-handler": "^4.0.0"
   }
