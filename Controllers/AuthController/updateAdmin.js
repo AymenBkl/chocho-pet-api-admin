@@ -40,7 +40,7 @@ module.exports.updateAdmin = (res,adminId,query) => {
             }
         })
         .catch(err => {
-            loggerController.insertLogger({level:'ERROR',type:'UPDATE',msg:'Something Went Wrong !'});
+            loggerController.insertLogger({level:'ERROR',type:'UPDATE',msg:'Something Went Wrong !' + new Error(err)});
             response.response('error',res,'Something Went Wrong !',500,null);
         })
       })

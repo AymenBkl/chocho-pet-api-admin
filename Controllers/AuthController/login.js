@@ -40,7 +40,7 @@ module.exports = {
                         req.login(admin, (err) => { 
                             if (err) {
                                 console.log('err',err)
-                                loggerController.insertLogger({level:'WARNING',type:'LOGIN',msg:'Unauthorized, Wrong Password Or Email'});
+                                loggerController.insertLogger({level:'WARNING',type:'LOGIN',msg:'Unauthorized, Wrong Password Or Email' + new Error(err)});
                                 response.response("error", res, err, 401,null);
                             }
                             

@@ -46,13 +46,13 @@ module.exports.changePassword = (req,res,next) => {
                             })
                             .catch((err) => {
                                 console.log(err)
-                                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !'});
+                                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !' + new Error(err)});
                                 response.response("error", res, err, 500,null);
                             });
                     })
                     .catch(err => {
                         console.log(err)
-                        loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !'});
+                        loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !' + new Error(err)});
                         response.response("error", res, err, 500,null);
                     });
                 } else {
@@ -61,12 +61,12 @@ module.exports.changePassword = (req,res,next) => {
                 }
             },(err) => {
                 console.log(err)
-                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !'});
+                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !' + new Error(err)});
                 response.response("error", res, err, 500,null);
             })
             .catch(err => {
                 console.log(err)
-                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !'});
+                loggerController.insertLogger({level:'ERROR',type:'CHANGE PASSWORD',msg:'Something Went Wrong !' + new Error(err)});
                 response.response("error", res, err, 500,null);
             })
         })
