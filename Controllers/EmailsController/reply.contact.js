@@ -8,7 +8,7 @@ const loggerController = require('../Logger/logger.controller');
 
 module.exports.sendContactEmail = async (res,req) => {
     let result = await sendEmail(req.body.email,'REPLY',req.body.subject,req.body.message,req.body.contactId);
-    if (result && result != false) {
+    if (result && result.status != false) {
         emailResponse.response('success',res,'Email Sent Successfully',200);
     }
     else {
