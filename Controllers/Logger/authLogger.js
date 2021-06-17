@@ -9,7 +9,6 @@ module.exports.insertAuthLogger = (object) => {
 }
 
 module.exports.getAuthLogger = (res,level) => {
-    console.log(level);
     authLogger.find({level:level})
         .then((loggers) => {
             if (loggers && loggers.length > 0){

@@ -1,15 +1,15 @@
-const productLogger = require('../../Models/productLogger');
+const  toolLogger = require('../../Models/toolsLogger');
 
-module.exports.insertProductLogger = (object) => {
-    productLogger.create(object)
+module.exports.insertToolsLogger = (object) => {
+    toolsLogger.create(object)
         .then((result) => {
         })
         .catch(err => {
         })
 }
 
-module.exports.getProductLogger = (res,level) => {
-    productLogger.find({level:level})
+module.exports.getToolsLogger = (res,level) => {
+    toolsLogger.find({level:level})
         .then((loggers) => {
             if (loggers && loggers.length > 0){
                 res.json({status:200,success:true,object:loggers});

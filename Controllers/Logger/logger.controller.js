@@ -4,6 +4,8 @@ const productLogger = require('./productLogger');
 
 const emailLogger = require('./emailLogger');
 
+const toolsLogger = require('./toolsLogger');
+
 module.exports = {
     getAuthLogger : (req,res,next) => {
         authLogger.getAuthLogger(res,req.query.level);
@@ -26,5 +28,14 @@ module.exports = {
 
     insertEmailLogger : (object) => {
         emailLogger.insertEmailLogger(object);
-    }
+    },
+
+    getToolsLogger : (req,res,next) => {
+        toolsLogger.getToolsLogger(res,req.query.level);
+    },
+
+    insertToolsLogger : (object) => {
+        toolsLogger.insertToolsLogger(object);
+    },
+    
 }

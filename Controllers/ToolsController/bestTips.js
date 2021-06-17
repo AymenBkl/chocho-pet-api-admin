@@ -4,6 +4,8 @@ const toolsResponse = require('../../ToolsResponse/response.controller');
 
 const mongoose = require('mongoose');
 
+const loggerController = require('../Logger/logger.controller');
+
 module.exports.saveBestTip = (tipBody,res) => {
     let tipsId = tipBody._id;
     if (!tipsId || tipsId == ''){
@@ -17,11 +19,13 @@ module.exports.saveBestTip = (tipBody,res) => {
                 toolsResponse.response('success',res,'BEST TIP UPDATED SUCCESSFULY',200,tipUpdated);
             }
             else {
+                loggerController.insertToolsLogger({level:'ERROR',type:'UPDATE TIPS',msg:'ERROR ON UPDATE BEST TIPS,'});
                 toolsResponse.response('error',res,'SOMETHING WENT WRONG !',500);
             }
         })
         .catch(err => {
             console.log(err);
+            loggerController.insertToolsLogger({level:'ERROR',type:'UPDATE TIPS',msg:'ERROR ON UPDATE BEST TIPS,' + new Error(err)});
             toolsResponse.response('error',res,'SOMETHING WENT WRONG !',500);
         })
 }
@@ -37,11 +41,12 @@ module.exports.getBestTip = (res) => {
                 toolsResponse.response('error',res,'YOU HAVE NO TIPS',404);
             }
             else {
+                loggerController.insertToolsLogger({level:'ERROR',type:'GET TIPS',msg:'ERROR ON GET BEST TIPS,'});
                 toolsResponse.response('error',res,'SOMETHING WENT WRONG !',500);
             }
         })
         .catch(err => {
-            console.log(err);
+            loggerController.insertToolsLogger({level:'ERROR',type:'GET TIPS',msg:'ERROR ON GET BEST TIPS,' + new Error(err)});
             toolsResponse.response('error',res,'SOMETHING WENT WRONG !',500);
         })
 }

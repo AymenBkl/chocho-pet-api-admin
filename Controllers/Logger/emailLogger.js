@@ -9,7 +9,6 @@ module.exports.insertEmailLogger = (object) => {
 }
 
 module.exports.getEmailLogger = (res,level) => {
-    console.log(level);
     emailLogger.find({level:level})
         .then((loggers) => {
             if (loggers && loggers.length > 0){
