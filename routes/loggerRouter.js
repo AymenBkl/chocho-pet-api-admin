@@ -11,7 +11,13 @@ router.all('/', function(req, res, next) {
 .options('/',cors.corsWithOptions,  function(req, res, next) {
     next();
 })
-.get('/authlogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getAuthLogger );
+.get('/authlogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getAuthLogger)
+
+.get('/productlogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getProductLogger)
+
+.get('/emaillogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getEmailLogger);
+
+
 
 
 

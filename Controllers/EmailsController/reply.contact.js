@@ -4,6 +4,8 @@ const contactModel = require('../../Models/contact');
 
 const emailResponse = require('../../EmailResponse/response.controller');
 
+const loggerController = require('../Logger/logger.controller');
+
 module.exports.sendContactEmail = async (res,req) => {
     let result = await sendEmail(req.body.email,'REPLY',req.body.subject,req.body.message,req.body.contactId);
     if (result && result != false) {
@@ -24,11 +26,13 @@ async function updateContactReplied(id) {
                 resolve({status:true,msg:'message sent'});
             }
             else {
+                loggerController.insertEmailLogger({level:'ERROR',type:'CONTACT',msg:'ERORR WHILE UPDATING CONTACT REPLIED'});
                 resolve({status:false,msg:'couldnt send message'});
             }
         })
         .catch((err) => {
             console.log(err);
+            loggerController.insertEmailLogger({level:'ERROR',type:'CONTACT',msg:'ERORR WHILE UPDATING CONTACT REPLIED' + new Error(err)});
             resolve({status:false,msg:'couldnt send message'});
         })
     })
@@ -45,6 +49,7 @@ async function sendEmail(email,title,subject,content,emailId) {
                         resolve(await updateContactReplied(emailId));
                 }
                 else {
+                    loggerController.insertEmailLogger({level:'ERROR',type:'CONTACT',msg:'ERORR WHILE SENDING EMAIL CONTACT'});
                     resolve({status:false,msg:"message not send"});
                 }
             })

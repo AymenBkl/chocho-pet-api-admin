@@ -17,6 +17,8 @@ var template = handlebars.compile(source);
 
 var templateContact = handlebars.compile(sourceContact);
 
+const loggerController = require('../Controllers/Logger/logger.controller');
+
 var transport;
 module.exports.createTransporter = () => {
     transport = nodemailer.createTransport({
@@ -47,6 +49,7 @@ module.exports.sendEmail = (sendTo,coupon,title,subject) => {
     
         transport.sendMail(mailOptions,(error,info) => {
             if (error) {
+                loggerController.insertEmailLogger({level:'ERROR',type:'SEND EMAIL',msg:'ERORR WHILE SENDING EMAIL' + new Error(error)});
                 resolve({status:false})
                 console.log(error);
             }
@@ -71,6 +74,7 @@ module.exports.sendEmailContact = (sendTo,title,subject,content) => {
     
         transport.sendMail(mailOptions,(error,info) => {
             if (error) {
+                loggerController.insertEmailLogger({level:'ERROR',type:'CONTACT',msg:'ERORR WHILE SENDING EMAIL CONTACT' + new Error(error)});
                 resolve({status:false})
                 console.log(error);
             }

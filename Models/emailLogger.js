@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const productLoggerSchema = new Schema({
+const emailLoggerSchema = new Schema({
     level: {
         type: String,
         required: true,
@@ -13,7 +13,7 @@ const productLoggerSchema = new Schema({
     type:{
         type: String,
         required: true,
-        enum: ['CREATE', 'UPDATE','DELETE','DESCRIPTION','GET PRODUCT','BADGES','SHIPPING BADGES','SHOPIFY PRODUCT']
+        enum: ['CREATE', 'UPDATE','SEND COUPON','SEND EMAIL','CONTACT','REPLY','CREATE DISCOUNT','SUBS']
     },
     msg:{
         type:String,
@@ -26,4 +26,4 @@ const productLoggerSchema = new Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('productLogger', productLoggerSchema);
+module.exports = mongoose.model('emailLogger', emailLoggerSchema);

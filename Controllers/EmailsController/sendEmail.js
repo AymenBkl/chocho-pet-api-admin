@@ -5,6 +5,8 @@ const emailModel = require('../../Models/email');
 
 const generateCoupon = require('../../Functions/Shopify/priceRules').createDiscount;
 
+const loggerController = require('../Logger/logger.controller');
+
 let emails = [];
 module.exports.sendEmail = async (email) => {
     return new Promise(async (resolve,reject) => {
@@ -48,10 +50,12 @@ async function updateEmailCouponSent(email) {
                 resolve({status:true,msg:'message sent'});
             }
             else {
+                loggerController.insertEmailLogger({level:'ERROR',type:'SEND EMAIL',msg:'ERORR WHILE UPDATING EMAIL'});
                 resolve({status:false,msg:'couldnt send message'});
             }
         })
         .catch((err) => {
+            loggerController.insertEmailLogger({level:'ERROR',type:'SEND EMAIL',msg:'ERORR WHILE UPDATING EMAIL' + new Error(err)});
             resolve({status:false,msg:'couldnt send message'});
         })
     })
@@ -68,6 +72,7 @@ async function sendEmail(coupon,email,title,subject) {
                         resolve(await updateEmailCouponSent(email.email));
                 }
                 else {
+                    loggerController.insertEmailLogger({level:'ERROR',type:'SEND EMAIL',msg:'ERORR WHILE SENDING EMAIL'});
                     resolve({status:false,msg:"message not send"});
                 }
             })
