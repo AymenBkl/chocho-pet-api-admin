@@ -4,6 +4,9 @@ const updateProduct = require('./updateProduct');
 const productResponse = require('../../HandlerProducts/response.controller');
 
 const mongoose = require('mongoose');
+
+const loggerController = require('../Logger/logger.controller');
+
 module.exports.addDescription = (description,productId,productMainId,res) => {
     description.productId = productId;
     if (!description._id){
@@ -28,19 +31,19 @@ module.exports.addDescription = (description,productId,productMainId,res) => {
                                 updateProduct.updateProduct(res,productMainId,query);
                             }
                             else {
+                                loggerController.insertProductLogger({level:'ERROR',type:'DESCRIPTION',msg:'ERROR CREATING DESCRIPTION'});
                                 productResponse.response('error',res,'Failed Created Description',500);
                             }
                         }
                     })
                     .catch(err => {
+                        loggerController.insertProductLogger({level:'ERROR',type:'DESCRIPTION',msg:'ERROR UPDATING DESCRIPTION' + new Error(err)});
                         productResponse.response('error',res,'Failed Created Description',500);
-                        console.log(err);
                     })
             }
             else {
                 productDescription.create(description)
                     .then(descriptionCreated => {
-                        console.log("description created",descriptionCreated);
                         if (descriptionCreated){
                             const query = {
                                 $addToSet: {
@@ -50,12 +53,13 @@ module.exports.addDescription = (description,productId,productMainId,res) => {
                             updateProduct.updateProduct(res,productMainId,query);
                         }
                         else {
+                            loggerController.insertProductLogger({level:'ERROR',type:'DESCRIPTION',msg:'ERROR CREATING DESCRIPTION'});
                             productResponse.response('error',res,'Failed Created Description',500);
                         }
                     })
                     .catch(err => {
+                        loggerController.insertProductLogger({level:'ERROR',type:'DESCRIPTION',msg:'ERROR CREATING DESCRIPTION' + new Error(err)});
                         productResponse.response('error',res,'Failed Created Description',500);
-            console.log(err);
                     })
             }
         })
