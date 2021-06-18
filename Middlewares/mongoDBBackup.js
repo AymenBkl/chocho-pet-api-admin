@@ -6,10 +6,18 @@ const { config } = require('../config');
 const loggerController = require('../Controllers/Logger/serverLogger');
 
 const fs = require('fs');
-module.exports.backUp = createBackup();
+
+const cron = require('node-cron')
+let task = cron.schedule('0 0 * * 0', () => { 
+    console.log('started');
+    createBackup();
+});
+module.exports.backUp = (req,res,next) => {
+  createBackup(res);
+};
 
 
-function createBackup() {
+function createBackup(res = '') {
   const now = new Date();
   const file = `ChochoPetBackUp${now.getFullYear() + '-' + now.getMonth() + '-'  + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes()}.archive`;
   const filePath = `I:\\ChochoPet\\Dump\\`;
@@ -17,27 +25,30 @@ function createBackup() {
     if (err) {
       console.log(err);
       loggerController.insertServerLogger({ level: 'ERROR', type: 'BACKUP', msg: 'BACKUP ERROR' + new Error(err) });
+      if (res && res !=''){
+        res.json({status:500,success:false,err:"Error While making Backup"});
+      }
       return;
     }
 
     // the *entire* stdout and stderr (buffered)
     loggerController.insertServerLogger({ level: 'SUCCESS', type: 'BACKUP', msg: 'BACKUP SUCCESSFULL,' + file });
-    prepareGoogle(filePath,file);
+    prepareGoogle(filePath,file,res);
   });
 }
 
-async function prepareGoogle(filePath,fileName) {
+async function prepareGoogle(filePath,fileName,res = '') {
   const auth2Client = new google.auth.OAuth2(config.googleDrive.clientId, config.googleDrive.clientSecret, config.googleDrive.redirectUri);
   auth2Client.setCredentials({ refresh_token: config.googleDrive.refreshToken });
   const drive = google.drive({
     version: 'v3',
     auth: auth2Client
   });
-  uploadFile(drive,filePath,fileName);
+  uploadFile(drive,filePath,fileName,res);
 }
 
 
-async function uploadFile(drive, filePath,fileName) {
+async function uploadFile(drive, filePath,fileName,res = '') {
   try {
     const folderId = '1dR3rD4Tn4GadD3Rt4kSzZBUPevzuzSN1';
     const response = await drive.files.create({
@@ -53,11 +64,14 @@ async function uploadFile(drive, filePath,fileName) {
       
     })
     loggerController.insertServerLogger({ level: 'SUCCESS', type: 'DRIVE', msg: 'DRIVE UPLOAD SUCCESSFULLY SUCCESSFULL,' + response.data });
-    deleteFile(filePath,fileName);
+    deleteFile(filePath,fileName,res,'Back Up Database');
   }
   catch (error) {
     loggerController.insertServerLogger({ level: 'ERROR', type: 'DRIVE', msg: 'ERROR WHILE UPLOADING FILE TO DRIVE,' + new Error(error) });
     deleteFile(filePath,fileName);
+    if (res && res !=''){
+      res.json({status:500,success:false,err:"Error While making Backup"});
+    }
   }
 }
 
@@ -129,18 +143,18 @@ function restoreDatabase(filePath,fileName,res){
   });
 }
 
-function deleteFile(filePath,fileName,res = ''){
+function deleteFile(filePath,fileName,res = '',msg = 'Restore'){
   fs.unlink(filePath + fileName, (err => {
     if (err)  {
       loggerController.insertServerLogger({ level: 'ERROR', type: 'FILE DELETE', msg: 'DELETE FILE,' + filePath + fileName + ', ' + new Error(err) }); 
       if (res && res != ''){
-        res.json({status:500,success:false,err:"Error While making Restore"});
+        res.json({status:500,success:false,err:"Error While making" + msg});
       }
     } 
     else {
       loggerController.insertServerLogger({ level: 'SUCCESS', type: 'FILE DELETE', msg: 'FILE DELETED SUCCESSFULLY,' + filePath + fileName });
       if (res && res != ''){
-        res.json({status:200,success:true,msg:"Restore successfull"})
+        res.json({status:200,success:true,msg:msg + " successfull"})
       }
     }
   }));
