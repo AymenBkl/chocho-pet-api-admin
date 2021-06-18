@@ -17,6 +17,8 @@ router.all('/', function(req, res, next) {
 
 .get('/toolslogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getToolsLogger)
 
+.get('/serverlogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getServerLogger)
+
 .get('/emaillogger',cors.corsWithOptions,jwt.verifyUser,jwt.verifyAdmin, loggers.getEmailLogger);
 
 
