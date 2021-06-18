@@ -7,6 +7,8 @@ const config = require('../config');
 
 const whiteList = [config.config.webURL,config.config.url,config.config.https];
 
+const loggerController = require('../Controllers/Logger/logger.controller');
+
 var corsOptionsDelegate = (req, callback) => {
   var corsOptions;
   const index = whiteList.indexOf(req.header("Origin"));  
@@ -14,6 +16,7 @@ var corsOptionsDelegate = (req, callback) => {
     corsOptions = { origin: true };
   } else {
     corsOptions = { origin: false };
+    loggerController.insertServerLogger({level:'ERROR',type:'CORS',msg:'ERORR CORS,' + req.header("Origin") + ',' + new Error('Not allowed by CORS')});
     callback(new Error('Not allowed by CORS'),corsOptions)
   }
   callback(null,corsOptions);

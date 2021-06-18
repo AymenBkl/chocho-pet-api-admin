@@ -9,6 +9,7 @@ var key = fs.readFileSync(process.mainModule.path + '\\mongoSSL\\mongodb.pem');
 
 var ca = fs.readFileSync(process.mainModule.path + '\\mongoSSL\\rootCA.pem');
 
+const loggerController = require('../Controllers/Logger/logger.controller');
 
 var options = {
     useNewUrlParser: true,
@@ -35,7 +36,9 @@ module.exports = mongoose
 })
   .then((db) => {
     console.log("connected to db");
+    loggerController.insertServerLogger({level:'SUCCESS',type:'DATABASE',msg:'CONNECTED TO DATABASE'});
   }) 
   .catch((err) => {
-    console.log("ERROR : !!", err);
+    console.log(err);
+    loggerController.insertServerLogger({level:'ERROR',type:'DATABASE',msg:'ERROR WHILE CONNECTING TO DATABASE' + new Error(err)});
   });

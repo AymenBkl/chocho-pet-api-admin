@@ -13,7 +13,7 @@ const serverLoggerSchema = new Schema({
     type:{
         type: String,
         required: true,
-        enum: ['STARTED', 'DATABASE','BACKUP','RESTORE','NOT FOUND','INTERNAL ERROR','CRASHED']
+        enum: ['STARTED', 'DATABASE','BACKUP','RESTORE','NOT FOUND','INTERNAL ERROR','CRASHED','CORS']
     },
     msg:{
         type:String,

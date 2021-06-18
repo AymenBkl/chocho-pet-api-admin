@@ -17,6 +17,7 @@ const httpsRedirect = require('./Middlewares/https.redirect');
 const limiter = require('./Middlewares/ddos.limiter');
 const mongoose = require('./Middlewares/mongoose');
 var passport = require('passport');
+const loggerController = require('./Controllers/Logger/logger.controller');
 
 // view engine setup
 app.use('/api',express.static(path.join(__dirname, '/public')));
@@ -39,6 +40,7 @@ sendEmail.createTransporter();
 var mongoBackup = require('./Middlewares/mongoDBBackup');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  loggerController.insertServerLogger({level:'WARNING',type:'NOT FOUND',msg:'NOT FOUND ENDPOINT 404'});
   next(createError(404)); 
 });
 
@@ -52,6 +54,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  loggerController.insertServerLogger({level:'ERROR',type:'INTERNAL ERROR',msg:'ERROR,' + new Error(err)});
   res.status(err.status || 500);
   res.render('error');
 });
