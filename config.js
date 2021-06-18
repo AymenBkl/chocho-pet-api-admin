@@ -21,6 +21,15 @@ module.exports.config = {
       apiKey:'6507765aa84a63a00dcaeb371f5237c1',
       apiSecret:'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',
 
+    },
+
+    googleDrive : {
+      clientId : '400201008070-i5p5ck12cjh9oievpk2lef1ua9nmdqe4.apps.googleusercontent.com',
+      clientSecret : 'LJ6-8usqFlG-Vax7G6zq87Zp',
+      redirectUri: 'https://developers.google.com/oauthplayground',
+      refreshToken:'1//0419JC0m1SrarCgYIARAAGAQSNwF-L9Irm4MY-b1-CpEBWuLkUAK8l74H9apc2fa_8Wj0fueErzZ3gyzlA8jQXNEd7kfbdP-XwtM',
+      
+
     }
 } 
 
