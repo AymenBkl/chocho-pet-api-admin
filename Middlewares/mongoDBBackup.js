@@ -79,7 +79,6 @@ async function uploadFile(drive, filePath,fileName,res = '') {
 module.exports.loadFilesDrive = async (req,res,next) => {
   const auth2Client = new google.auth.OAuth2(config.googleDrive.clientId, config.googleDrive.clientSecret, config.googleDrive.redirectUri);
   auth2Client.setCredentials({ refresh_token: config.googleDrive.refreshToken });
-  const filePath = 'I:\\ChochoPet\\Dump\\'
   const drive = google.drive({
     version: 'v3',
     auth: auth2Client
@@ -88,18 +87,20 @@ module.exports.loadFilesDrive = async (req,res,next) => {
   const folderId = '1dR3rD4Tn4GadD3Rt4kSzZBUPevzuzSN1';
   const response = await drive.files.list({
     pageSize:200,
-    orderBy:'createdTime',
-    q: `'${folderId}' in parents and trashed=false`
+    orderBy:'createdTime desc',
+    q: `'${folderId}' in parents and trashed=false and mimeType='text/plain'`
   })
     res.json({status:200,success:true,data:response.data.files})
   }
   
   catch (error){
-    loggerController.insertServerLogger({ level: 'ERROR', type: 'DRIVE', msg: 'LAODING DATA FROM DRIVE,' + new Error(err) });
+    loggerController.insertServerLogger({ level: 'ERROR', type: 'DRIVE', msg: 'LAODING DATA FROM DRIVE,' + new Error(error) });
+    res.json({status:500,success:false,err:'Error While Loading Data From Google Drive'})
+
   }
 }
 
-module.exports.downloadFile = async (req,res,next) => {
+module.exports.downloadFile = async (req,globalRes,next) => {
   const fileId = req.body.fileId;
   const fileName = req.body.fileName;
   const auth2Client = new google.auth.OAuth2(config.googleDrive.clientId, config.googleDrive.clientSecret, config.googleDrive.redirectUri);
@@ -116,7 +117,7 @@ module.exports.downloadFile = async (req,res,next) => {
      .on('end', () => {
         loggerController.insertServerLogger({ level: 'SUCCESS', type: 'DRIVE', msg: 'FILE DOWNLOADED SUCCESSFULLY,' + fileName });
         console.log('Done');
-        restoreDatabase(filePath,fileName);
+        restoreDatabase(filePath,fileName,globalRes);
      })
      .on('error', err => {
       loggerController.insertServerLogger({ level: 'ERROR', type: 'DRIVE', msg: 'ERROR WHILE DOWNLOADING FILE,' + fileName + ', ' + new Error(err) });
@@ -139,7 +140,7 @@ function restoreDatabase(filePath,fileName,res){
 
     // the *entire* stdout and stderr (buffered)
     loggerController.insertServerLogger({ level: 'SUCCESS', type: 'RESTORE', msg: 'RESTORE SUCCESSFULL,' + fileName });
-    deleteFile(filePath,fileName,res)
+    deleteFile(filePath,fileName,res,'Restore')
   });
 }
 
@@ -154,7 +155,7 @@ function deleteFile(filePath,fileName,res = '',msg = 'Restore'){
     else {
       loggerController.insertServerLogger({ level: 'SUCCESS', type: 'FILE DELETE', msg: 'FILE DELETED SUCCESSFULLY,' + filePath + fileName });
       if (res && res != ''){
-        res.json({status:200,success:true,msg:msg + " successfull"})
+        res.json({status:200,success:true,msg:msg + " Successfull"})
       }
     }
   }));

@@ -10,6 +10,7 @@ module.exports.insertToolsLogger = (object) => {
 
 module.exports.getToolsLogger = (res,level) => {
     toolsLogger.find({level:level})
+    .sort({ createdAt: -1 })
         .then((loggers) => {
             if (loggers && loggers.length > 0){
                 res.json({status:200,success:true,object:loggers});

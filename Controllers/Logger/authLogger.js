@@ -10,6 +10,7 @@ module.exports.insertAuthLogger = (object) => {
 
 module.exports.getAuthLogger = (res,level) => {
     authLogger.find({level:level})
+    .sort({ createdAt: -1 })
         .then((loggers) => {
             if (loggers && loggers.length > 0){
                 res.json({status:200,success:true,object:loggers});
