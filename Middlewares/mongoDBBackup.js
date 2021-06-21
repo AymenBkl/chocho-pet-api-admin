@@ -20,8 +20,8 @@ module.exports.backUp = (req,res,next) => {
 function createBackup(res = '') {
   const now = new Date();
   const file = `ChochoPetBackUp${now.getFullYear() + '-' + now.getMonth() + '-'  + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes()}.archive`;
-  const filePath = `I:\\ChochoPet\\Dump\\`;
-  exec(`mongodump -u aymenelom -p 261997 --ssl --host 192.168.1.104 --sslCAFile I:\\ChochoPet\\api-admin-chochopet\\api-admin\\admin-api\\bin\\mongoSSL\\rootCA.pem --sslPEMKeyFile I:\\ChochoPet\\api-admin-chochopet\\api-admin\\admin-api\\bin\\mongoSSL\\mongodb.pem --authenticationDatabase admin --tlsInsecure -d chochopet --archive=${filePath + file} `, (err, stdout, stderr) => {
+  const filePath = `/opt/mongodb/backup/`;
+  exec(`mongodump -u chochopetsuperadmin -p chochopetsuperadminsakdlskasakd20210525shopifybestsiteeversakdlskasakd --ssl --host 127.0.0.1 --sslCAFile /opt/mongodb/ssl/ca.pem --sslPEMKeyFile /opt/mongodb/ssl/mongodb.pem --authenticationDatabase admin --tlsInsecure -d chochopet --archive=${filePath + file}`, (err, stdout, stderr) => {
     if (err) {
       console.log(err);
       loggerController.insertServerLogger({ level: 'ERROR', type: 'BACKUP', msg: 'BACKUP ERROR' + new Error(err) });
@@ -105,7 +105,7 @@ module.exports.downloadFile = async (req,globalRes,next) => {
   const fileName = req.body.fileName;
   const auth2Client = new google.auth.OAuth2(config.googleDrive.clientId, config.googleDrive.clientSecret, config.googleDrive.redirectUri);
   auth2Client.setCredentials({ refresh_token: config.googleDrive.refreshToken });
-  const filePath = 'I:\\ChochoPet\\Dump\\'
+  const filePath = '/opt/mongodb/backup/'
   const drive = google.drive({
     version: 'v3',
     auth: auth2Client
@@ -130,7 +130,7 @@ module.exports.downloadFile = async (req,globalRes,next) => {
 }
 
 function restoreDatabase(filePath,fileName,res){
-  exec(`mongorestore -u aymenelom -p 261997 --ssl --host 192.168.1.104 --sslCAFile I:\\ChochoPet\\api-admin-chochopet\\api-admin\\admin-api\\bin\\mongoSSL\\rootCA.pem --sslPEMKeyFile I:\\ChochoPet\\api-admin-chochopet\\api-admin\\admin-api\\bin\\mongoSSL\\mongodb.pem --authenticationDatabase admin --tlsInsecure  --archive=${filePath + fileName}`, (err, stdout, stderr) => {
+  exec(`mongorestore -u chochopetsuperadmin -p chochopetsuperadminsakdlskasakd20210525shopifybestsiteeversakdlskasakd --ssl --host 127.0.0.1 --sslCAFile /opt/mongodb/ssl/ca.pem --sslPEMKeyFile /opt/mongodb/ssl/mongodb.pem --authenticationDatabase admin --tlsInsecure  --archive=${filePath + fileName}`, (err, stdout, stderr) => {
     if (err) {
       console.log(err);
       loggerController.insertServerLogger({ level: 'ERROR', type: 'RESTORE', msg: 'RESTORE ERROR' + new Error(err) });

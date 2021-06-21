@@ -24,10 +24,10 @@ module.exports.config = {
     },
 
     googleDrive : {
-      clientId : '400201008070-i5p5ck12cjh9oievpk2lef1ua9nmdqe4.apps.googleusercontent.com',
-      clientSecret : 'LJ6-8usqFlG-Vax7G6zq87Zp',
+      clientId : '290540625718-fhslgni086vqteh4qeocig1n7nssl2b8.apps.googleusercontent.com',
+      clientSecret : '8y_xXun9BQWc-t-k19AC-9gV',
       redirectUri: 'https://developers.google.com/oauthplayground',
-      refreshToken:'1//0419JC0m1SrarCgYIARAAGAQSNwF-L9Irm4MY-b1-CpEBWuLkUAK8l74H9apc2fa_8Wj0fueErzZ3gyzlA8jQXNEd7kfbdP-XwtM',
+      refreshToken:'1//04OnFwkF6aM9oCgYIARAAGAQSNwF-L9IrE3Re9VtvqUbuFxJrulRIAsOVBohN7f3ozTypgb8F1rl86H-4x4ZToaWOgBs_W5bQSbQ',
       
 
     }
